@@ -12,6 +12,8 @@ from .errors import ValidationError, RequestError
 from .crypto import *
 import tempfile
 
+# Replace random with secure random generator
+#random = random.SystemRandom()
 
 class Mega(object):
     def __init__(self, options=None):
@@ -622,6 +624,8 @@ class Mega(object):
     ##########################################################################
     # OTHER OPERATIONS
     def create_folder(self, name, dest=None):
+        if name is None or name == '':
+            raise Exception('mega.py: empty folder name')
         #determine storage node
         if dest is None:
             #if none set, upload to cloud drive node
@@ -825,3 +829,8 @@ class Mega(object):
 
         #return API msg
         return data
+
+    def get_name_from_file(self, d):
+        for k in d:
+            return d[k]['a']['n']
+        raise Exception('no name found')

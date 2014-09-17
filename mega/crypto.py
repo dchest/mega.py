@@ -5,6 +5,8 @@ import struct
 import binascii
 import random
 
+# Replace random with secure random generator
+random = random.SystemRandom()
 
 def aes_cbc_encrypt(data, key):
     aes_cipher = AES.new(key, AES.MODE_CBC, '\0' * 16)
